@@ -1,0 +1,20 @@
+.footer {
+  width: 100%;
+  padding: 14px 0;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  border-top: 1px solid var(--border-color, #e5e5e5);
+  transition: background-color 0.2s ease;
+}
+
+.footer:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  /* 아주 약한 강조 */
+}
+
+.label {
+  font-size: 15px;
+  color: var(--text-color);
+  font-weight: 500;
+}
