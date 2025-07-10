@@ -1,15 +1,19 @@
 // src/App.tsx
 import React from 'react';
+import ClipboardList from './components/ClipboardList/ClipboardList';
+import { useClipboardListener } from './hooks/useClipboardListener';
 import styles from './App.module.css';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
 function App() {
+  useClipboardListener();
+
   return (
     <div className={styles.widgetContainer}>
       <Header />
-      {/* 👇 여기에 ClipboardList 들어갈 예정 */}
-      <div style={{ flex: 1 }}></div>
+      <ClipboardList />
+         <div style={{ flex: 1 }}></div>
       <Footer />
     </div>
   );

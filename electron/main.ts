@@ -27,6 +27,8 @@ app.whenReady().then(() => {
     if (text && text !== lastText) {
       lastText = text;
       win?.webContents.send('clipboard:text', text);
+      console.log('[Clipboard] 읽음:', text);
+
     }
   }, 1000);
 });

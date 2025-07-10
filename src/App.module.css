@@ -2,11 +2,13 @@
 
 .widgetContainer {
   width: 350px;
-  height: 450px;
+  height: 650px;
   border-radius: 12px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   background-color: var(--bg-color, white);
   display: flex;
   flex-direction: column;
+  height: 100%;
+  padding: 24px;
 }
