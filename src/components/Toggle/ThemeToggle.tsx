@@ -10,6 +10,8 @@ export default function ThemeToggle() {
         type="checkbox"
         checked={theme === 'dark'}
         onChange={toggleTheme}
+        aria-label="Toggle dark mode"
+        role="switch"
       />
       <span className={styles.slider}></span>
     </label>

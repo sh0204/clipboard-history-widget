@@ -1,43 +1,96 @@
-.clipboardList {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  max-height: 300px;
-  min-height: 150px; /* ✅ 리스트가 없을 때도 공간 유지 */
-  overflow-y: auto;
-  padding: 12px 16px;
-  margin: 16px 0;
-  color: #1d1d1f;
-}
-
-.clipboardList li {
-  padding: 8px 12px;
-  border-radius: 8px;
-  margin-bottom: 6px;
-  cursor: default;
-  user-select: text;
-  transition: background-color 0.2s ease;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.4;
-  white-space: nowrap;
+.wrapper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-height: 80px; /* 최소 높이 줄임 */
+  max-height: calc(5 * 48px); /* 최대 5개 항목 높이 기준 (1개 항목 48px 가정) */
   overflow: hidden;
-  text-overflow: ellipsis;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
-.clipboardList li:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  min-height: 0;
+  color: var(--text-color);
+}
+
+
+
+.item {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color); /* 변수로 변경 */
+  font-size: 14px;
+  color: var(--text-color); /* 변수로 변경 */
+}
+
+.text {
+  flex: 1;
+  margin-right: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text-color); /* 변수로 변경 */
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
 }
 
 .empty {
+  flex: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100px;
+  justify-content: center;
+  color: var(--text-color);
   font-size: 14px;
-  font-style: italic;
-  color: #999;
-  user-select: none;
+  min-height: 160px;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--button-color); /* 변수로 변경 */
+  transition: color 0.2s ease-in-out;
+  font-size: 16px; /* 아이콘 크기 조절용 */
+}
+
+.iconBtn:hover {
+  color: var(--button-hover); /* 변수로 변경 */
+}
+
+/* 반응형 예시 */
+@media (max-height: 400px) {
+  .wrapper {
+    min-height: 120px;
+    padding: 12px;
+  }
+  .list, .empty {
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 320px) {
+  .text {
+    font-size: 13px;
+  }
+  .iconBtn {
+    font-size: 14px;
+    padding: 3px;
+  }
 }

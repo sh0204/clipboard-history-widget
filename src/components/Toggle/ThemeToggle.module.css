@@ -1,4 +1,3 @@
-/* ThemeToggle.module.css */
 .switch {
   position: relative;
   display: inline-block;
@@ -36,10 +35,10 @@
   border-radius: 50%;
 }
 
-input:checked+.slider {
-  background-color: #4f46e5;
+input:checked + .slider {
+  background-color: #4f46e5; /* 애플 스타일로 원하면 #007AFF 등으로 변경 가능 */
 }
 
-input:checked+.slider::before {
+input:checked + .slider::before {
   transform: translateX(18px);
 }
