@@ -2,10 +2,10 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px; /* 기존 12px → 8px */
   flex: 1 1 auto;
-  min-height: 80px; /* 최소 높이 줄임 */
-  max-height: calc(5 * 48px); /* 최대 5개 항목 높이 기준 (1개 항목 48px 가정) */
+  min-height: 80px;
+  max-height: calc(5 * 48px);
   overflow: hidden;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -18,22 +18,85 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px; /* 기존 10px → 6px */
   overflow-y: auto;
   min-height: 0;
   color: var(--text-color);
 }
 
+/* 핀 버튼 기본 숨김 */
+.pinBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 4px;
+  color: #999;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 마우스 올리면 핀 버튼 보임 (고정 안된 항목) */
+.item:not(.pinned):hover .pinBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 고정된 항목은 핀 버튼 항상 보임 */
+.item.pinned .pinBtn {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  color: #facc15; /* 노란색 */
+}
+
+/* 핀 버튼 호버 스타일 */
+.pinBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+}
+
+/* 다크모드 핀 버튼 색상 */
+.widget[data-theme='dark'] .pinBtn {
+  color: #facc15 !important;
+}
+
+.widget[data-theme='dark'] .pinBtn:hover {
+  background-color: rgba(250, 204, 21, 0.2);
+  color: #facc15 !important;
+}
+
+/* 라이트 모드: 고정 항목 배경/글자색 */
+.item.pinned {
+  background-color: #fefce8; /* 연노랑 배경 */
+  color: #444444; /* 진한 글자색 */
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin: 2px 0;
+  border-bottom: none; /* 고정 항목은 밑줄 제거 */
+  transition: background-color 0.3s ease;
+}
 
 .item {
   display: flex;
   align-items: center;
   background: transparent;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border-color); /* 변수로 변경 */
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-color);
   font-size: 14px;
-  color: var(--text-color); /* 변수로 변경 */
+  color: var(--text-color);
+  transition: background-color 0.3s ease;
+  border-radius: 12px;
+}
+
+/* 마우스 올릴 때 배경 살짝 변경 (고정 아닐 때만) */
+.item:not(.pinned):hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .text {
@@ -42,12 +105,23 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: var(--text-color); /* 변수로 변경 */
+  color: inherit;
 }
 
 .actions {
   display: flex;
   gap: 8px;
+}
+
+/* 삭제 버튼은 항상 보임 */
+.actions > button.deleteBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 복사 버튼은 제거 (숨김 처리) */
+.actions > button.copyBtn {
+  display: none !important;
 }
 
 .empty {
@@ -65,32 +139,21 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: var(--button-color); /* 변수로 변경 */
+  color: var(--button-color);
   transition: color 0.2s ease-in-out;
-  font-size: 16px; /* 아이콘 크기 조절용 */
+  font-size: 16px;
 }
 
 .iconBtn:hover {
-  color: var(--button-hover); /* 변수로 변경 */
+  color: var(--button-hover);
 }
 
-/* 반응형 예시 */
-@media (max-height: 400px) {
-  .wrapper {
-    min-height: 120px;
-    padding: 12px;
-  }
-  .list, .empty {
-    min-height: 120px;
-  }
+/* 다크모드 고정 항목 스타일 */
+.widget[data-theme='dark'] .item.pinned {
+  background-color: #4b4b1f; /* 짙은 노랑/카키 배경 */
+  color: #facc15; /* 밝은 노란 글자 */
 }
 
-@media (max-width: 320px) {
-  .text {
-    font-size: 13px;
-  }
-  .iconBtn {
-    font-size: 14px;
-    padding: 3px;
-  }
+.widget[data-theme='dark'] .item.pinned .text {
+  color: inherit;
 }
