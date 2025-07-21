@@ -2,7 +2,7 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px; /* 기존 12px → 8px */
+  gap: 8px;
   flex: 1 1 auto;
   min-height: 80px;
   max-height: calc(5 * 48px);
@@ -18,68 +18,10 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: 6px; /* 기존 10px → 6px */
+  gap: 6px;
   overflow-y: auto;
   min-height: 0;
   color: var(--text-color);
-}
-
-/* 핀 버튼 기본 숨김 */
-.pinBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  margin-right: 4px;
-  color: #999;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* 마우스 올리면 핀 버튼 보임 (고정 안된 항목) */
-.item:not(.pinned):hover .pinBtn {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* 고정된 항목은 핀 버튼 항상 보임 */
-.item.pinned .pinBtn {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  color: #facc15; /* 노란색 */
-}
-
-/* 핀 버튼 호버 스타일 */
-.pinBtn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: #000;
-}
-
-/* 다크모드 핀 버튼 색상 */
-.widget[data-theme='dark'] .pinBtn {
-  color: #facc15 !important;
-}
-
-.widget[data-theme='dark'] .pinBtn:hover {
-  background-color: rgba(250, 204, 21, 0.2);
-  color: #facc15 !important;
-}
-
-/* 라이트 모드: 고정 항목 배경/글자색 */
-.item.pinned {
-  background-color: #fefce8; /* 연노랑 배경 */
-  color: #444444; /* 진한 글자색 */
-  padding: 8px 12px;
-  border-radius: 12px;
-  margin: 2px 0;
-  border-bottom: none; /* 고정 항목은 밑줄 제거 */
-  transition: background-color 0.3s ease;
 }
 
 .item {
@@ -94,9 +36,18 @@
   border-radius: 12px;
 }
 
-/* 마우스 올릴 때 배경 살짝 변경 (고정 아닐 때만) */
 .item:not(.pinned):hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.item.pinned {
+  background-color: #fefce8;
+  color: #444444;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin: 2px 0;
+  border-bottom: none;
+  transition: background-color 0.3s ease;
 }
 
 .text {
@@ -113,15 +64,45 @@
   gap: 8px;
 }
 
-/* 삭제 버튼은 항상 보임 */
 .actions > button.deleteBtn {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* 복사 버튼은 제거 (숨김 처리) */
 .actions > button.copyBtn {
   display: none !important;
+}
+
+.pinBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 4px;
+  color: #999;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.item:not(.pinned):hover .pinBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.item.pinned .pinBtn {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  color: #facc15;
+}
+
+.pinBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
 }
 
 .empty {
@@ -148,12 +129,106 @@
   color: var(--button-hover);
 }
 
-/* 다크모드 고정 항목 스타일 */
+/* === 다크 모드 === */
 .widget[data-theme='dark'] .item.pinned {
-  background-color: #4b4b1f; /* 짙은 노랑/카키 배경 */
-  color: #facc15; /* 밝은 노란 글자 */
+  background-color: #4b4b1f;
+  color: #facc15;
 }
-
 .widget[data-theme='dark'] .item.pinned .text {
   color: inherit;
+}
+.widget[data-theme='dark'] .pinBtn {
+  color: #facc15 !important;
+}
+.widget[data-theme='dark'] .pinBtn:hover {
+  background-color: rgba(250, 204, 21, 0.2);
+  color: #facc15 !important;
+}
+
+/* === 🔍 검색 UI === */
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 6px 32px 6px 8px; /* 오른쪽 clear 버튼 공간 확보 */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: border-color 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  border-color: var(--button-hover);
+}
+
+/* clear 버튼을 검색창 오른쪽 내부에 절대 위치 시킴 */
+.clearBtn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--button-color);
+  transition: color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.clearBtn:hover {
+  color: var(--button-hover);
+}
+
+.searchToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 16px;
+  color: var(--button-color);
+  transition: color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.searchToggle:hover {
+  color: var(--button-hover);
+}
+
+/* 다크모드 */
+.widget[data-theme='dark'] .searchInput {
+  background-color: #333;
+  border-color: #555;
+  color: #eee;
+}
+
+.widget[data-theme='dark'] .searchToggle {
+  color: #eee;
+}
+
+.widget[data-theme='dark'] .searchToggle:hover {
+  color: #facc15;
+}
+
+.widget[data-theme='dark'] .clearBtn {
+  color: #eee;
+}
+
+.widget[data-theme='dark'] .clearBtn:hover {
+  color: #facc15;
 }
